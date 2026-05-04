@@ -1,6 +1,6 @@
 # 📦 Sistema de controle de estoque
 
-Sistema de controle de estoque com backend Python puro e frontend HTML/CSS/JS.
+Sistema de controle de estoque com backend Python e frontend HTML/CSS/JS.
 
 ---
 
@@ -9,14 +9,15 @@ Sistema de controle de estoque com backend Python puro e frontend HTML/CSS/JS.
 ```
 estoque-system/
 ├── backend/
-│   ├── main.py        # Servidor HTTP + rotas da API
-│   ├── models.py      # Dataclasses Produto e Movimentacao
-│   └── database.py    # SQLite: conexão, criação de tabelas e seed
+│   ├── main.py        
+│   ├── models.py      
+│   └── database.py    
 ├── frontend/
-│   ├── index.html     # Interface principal
-│   ├── style.css      # Design system (tema dark industrial)
-│   └── script.js      # Lógica de UI + chamadas à API
+│   ├── index.html     
+│   ├── style.css      
+│   └── script.js      
 └── README.md
+└── .gitignore
 ```
 
 ---
@@ -98,13 +99,13 @@ curl -X POST http://localhost:8000/api/movimentacoes \
 
 ## Funcionalidades
 
-- ✅ CRUD completo de produtos
-- ✅ Registro de entradas e saídas com histórico
-- ✅ Alertas de estoque baixo / zerado
-- ✅ Dashboard com valor total, categorias e movimentações da semana
-- ✅ Filtro e busca em tempo real
-- ✅ Banco SQLite local (sem configuração)
-- ✅ Dados de demonstração (seed automático)
+- CRUD completo de produtos
+- Registro de entradas e saídas com histórico
+- Alertas de estoque baixo / zerado
+- Dashboard com valor total, categorias e movimentações da semana
+- Filtro e busca em tempo real
+- Banco SQLite local (sem configuração)
+- Dados de demonstração (seed automático)
 
 ---
 
