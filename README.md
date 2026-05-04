@@ -112,3 +112,8 @@ curl -X POST http://localhost:8000/api/movimentacoes \
 ## Banco de dados
 
 O arquivo `backend/estoque.db` é criado automaticamente na primeira execução com 8 produtos de demonstração. Para resetar, basta deletar o arquivo e reiniciar o servidor.
+
+---
+
+Desenvolvido por Vitor Marinho
+
