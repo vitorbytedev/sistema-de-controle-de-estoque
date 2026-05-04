@@ -7,7 +7,7 @@ Sistema de controle de estoque com backend Python e frontend HTML/CSS/JS.
 ## Estrutura
 
 ```
-estoque-system/
+sistema-de-controle-de-estoque/
 ├── backend/
 │   ├── main.py        
 │   ├── models.py      
