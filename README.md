@@ -1,4 +1,4 @@
-# 📦 EstoqueSystem
+# 📦 Sistema de controle de estoque
 
 Sistema de controle de estoque com backend Python puro e frontend HTML/CSS/JS.
 
