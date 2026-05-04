@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstoqueSystem</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+    </svg>
+    ESTOQUE<span>/SYS</span>
+  </div>
+  <div class="status-badge" id="status-badge">● ONLINE</div>
+</header>
+
+<nav>
+  <button class="nav-btn active" data-section="dashboard">Dashboard</button>
+  <button class="nav-btn" data-section="produtos">Produtos</button>
+  <button class="nav-btn" data-section="movs">Movimentações</button>
+</nav>
+
+<main>
+
+  <section id="sec-dashboard" class="section active">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Dashboard</div>
+        <div class="section-subtitle">Visão geral do estoque</div>
+      </div>
+      <button class="btn btn-ghost" onclick="loadDashboard()">↻ Atualizar</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total de Produtos</div>
+        <div class="stat-value" id="stat-total">—</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="stat-label">Estoque Baixo</div>
+        <div class="stat-value" id="stat-baixo">—</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-label">Valor em Estoque</div>
+        <div class="stat-value" id="stat-valor" style="font-size:1.3rem">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Movs. esta semana</div>
+        <div class="stat-value" id="stat-movs">—</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-bottom:.75rem;font-size:.85rem">CATEGORIAS</div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </section>
+
+  <section id="sec-produtos" class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Produtos</div>
+        <div class="section-subtitle">Gerencie o catálogo de itens</div>
+      </div>
+      <button class="btn btn-primary" id="btn-novo-produto">+ Novo Produto</button>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="search-input" class="search-box" placeholder="Buscar por nome ou categoria…" />
+      <select id="filter-cat" class="filter-select">
+        <option value="">Todas as categorias</option>
+      </select>
+      <button class="btn btn-ghost" onclick="loadProdutos()">↻</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Qtd</th>
+            <th>Preço</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-produtos"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sec-movs" class="section">
+    <div class="section-header">
+      <div>
+        <div class="section-title">Movimentações</div>
+        <div class="section-subtitle">Histórico de entradas e saídas (últimas 100)</div>
+      </div>
+      <button class="btn btn-ghost" onclick="loadMovimentacoes()">↻ Atualizar</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Produto</th>
+            <th>Tipo</th>
+            <th>Quantidade</th>
+            <th>Observação</th>
+            <th>Data/Hora</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-movs"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<div class="modal-overlay" id="modal-produto">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-produto-title">Novo Produto</span>
+      <button class="btn btn-ghost btn-sm modal-close">✕</button>
+    </div>
+    <form id="form-produto">
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="campo-nome">Nome *</label>
+            <input id="campo-nome" type="text" placeholder="Ex: Notebook Dell" required />
+          </div>
+          <div class="form-group">
+            <label for="campo-categoria">Categoria *</label>
+            <input id="campo-categoria" type="text" placeholder="Ex: Eletrônicos" required list="lista-cats" />
+            <datalist id="lista-cats"></datalist>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="campo-quantidade">Quantidade</label>
+              <input id="campo-quantidade" type="number" min="0" value="0" />
+            </div>
+            <div class="form-group">
+              <label for="campo-estoque-min">Estoque Mínimo</label>
+              <input id="campo-estoque-min" type="number" min="0" value="5" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="campo-preco">Preço (R$) *</label>
+            <input id="campo-preco" type="number" min="0" step="0.01" placeholder="0.00" required />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-movimentacao">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Registrar Movimentação</span>
+      <button class="btn btn-ghost btn-sm modal-close">✕</button>
+    </div>
+    <form id="form-movimentacao">
+      <div class="modal-body">
+        <p id="mov-produto-info" style="font-size:.85rem;color:var(--muted);margin-bottom:1rem;font-family:var(--mono)"></p>
+        <input type="hidden" id="mov-produto-id" />
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="mov-tipo">Tipo</label>
+            <select id="mov-tipo">
+              <option value="entrada">📥 Entrada</option>
+              <option value="saida">📤 Saída</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mov-quantidade">Quantidade *</label>
+            <input id="mov-quantidade" type="number" min="1" value="1" required />
+          </div>
+          <div class="form-group">
+            <label for="mov-obs">Observação</label>
+            <input id="mov-obs" type="text" placeholder="Ex: Compra fornecedor X" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost modal-close">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
