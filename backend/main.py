@@ -1,9 +1,3 @@
-"""
-Estoque System - Backend API
-Rode com: python backend/main.py
-API disponível em: http://localhost:8000
-"""
-
 import json
 import sys
 import os
